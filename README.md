@@ -108,3 +108,14 @@ export default tseslint.config({
 
 ---
 
+## 📦 Built With
+
+React
+
+TypeScript
+
+Vite
+
+Apollo Client
+
+GitHub GraphQL API
