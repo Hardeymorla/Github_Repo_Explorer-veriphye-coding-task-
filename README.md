@@ -53,10 +53,6 @@ export default tseslint.config({
 })
 ```
 
-Thanks for the kind words, and great job sticking through all the steps! Let's now improve your `README.md` by **adding** the relevant custom sections you mentioned, while **preserving what Vite already generated**.
-
-Here's what you can **append** to the bottom of your current `README.md`:
-
 ---
 
 ## 🚀 How to Set Up and Run the Project
