@@ -59,14 +59,14 @@ export default tseslint.config({
 
 1. **Clone the Repository**
 
-   ```bash
+   ```powershell
    git clone https://github.com/your-username/your-repo-name.git
    cd your-repo-name
    ```
 
 2. **Install Dependencies**
 
-   ```bash
+   ```powershell
    npm install
    ```
 
@@ -78,7 +78,7 @@ export default tseslint.config({
 
 4. **Run the Application**
 
-   ```bash
+   ```powershell
    npm run dev
    ```
 
