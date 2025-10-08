@@ -10,13 +10,14 @@ import Form from './components/Form.tsx';
 import LoadMoreButton from './components/LoadMoreButton.tsx';
 
 function App() {
+  const [repositories, setRepositories] = useState<any[]>([]);
   const [username, setUsername] = useState('');
   const [languageFilter, setLanguageFilter] = useState<string>('All');
   const [sortOption, setSortOption] = useState<string>('stars');
 
   const [endCursor, setEndCursor] = useState<string | null>(null);
   const [hasNextPage, setHasNextPage] = useState(false);
-
+  
   const [fetchRepos, { data, loading, error, fetchMore }] = useLazyQuery(GET_USER_REPOS, {
     notifyOnNetworkStatusChange: true, // lets loading update during fetchMore
   });
@@ -32,9 +33,10 @@ function App() {
       setHasNextPage(pageInfo.hasNextPage);
     }
   }, [data]);
+  console.log(repositories)
   
   // setting up the filter and sort
-  const [repositories, setRepositories] = useState(data?.user?.repositories?.nodes ?? []);
+  // const [repositories, setRepositories] = useState(data?.user?.repositories?.nodes ?? []);
   const filteredRepos = repositories
     .filter((repo: any) => {
       if (languageFilter === 'All') return true;
@@ -48,32 +50,23 @@ function App() {
     }
     });
   
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    setRepositories([]); // reset
-    setEndCursor(null);
-    setHasNextPage(false);
-    
-    if (username) {
-      fetchRepos({ variables: { username, first: 10 } });
-    }
-  };
-
   return (
     <div className="p-4 max-w-2xl mx-auto">
       <Form
-        handleSubmit={handleSubmit}
+        fetchRepos={fetchRepos}
         username={username}
         setUsername={setUsername}
+        setRepositories={ setRepositories }
+        setEndCursor={setEndCursor}
+        setHasNextPage={setHasNextPage}
       />
 
       {loading && <Loader />}
       {error && <ErrorMessage message={error.message} />}
       {data?.user?.repositories?.nodes &&
         <>
-          <LanguageFilter value={languageFilter} onChange={setLanguageFilter} />
-          <SortSelector value={sortOption} onChange={setSortOption} />
+          <LanguageFilter languageFilter={languageFilter} setLanguageFilter={setLanguageFilter} />
+          <SortSelector sortOption={sortOption} setSortOption={setSortOption} />
           <RepoList filteredRepos={filteredRepos}  />
           <LoadMoreButton
             username={username}

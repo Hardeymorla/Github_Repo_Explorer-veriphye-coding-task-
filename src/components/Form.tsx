@@ -1,10 +1,30 @@
+import type { LazyQueryExecFunction, OperationVariables } from "@apollo/client"
+import type { Dispatch, SetStateAction } from "react"
+
 type FormProps = {
-    handleSubmit: (e: React.FormEvent) => void
-    username: string
-    setUsername: React.Dispatch<React.SetStateAction<string>>
+  username: string
+  setUsername: React.Dispatch<React.SetStateAction<string>>,
+  fetchRepos: LazyQueryExecFunction<any, OperationVariables>,
+  setRepositories: React.Dispatch<React.SetStateAction<any[]>>,
+  setEndCursor: React.Dispatch<React.SetStateAction<string | null>>,
+  setHasNextPage: Dispatch<SetStateAction<boolean>>
 }
 
-const Form = ( {handleSubmit, username, setUsername}: FormProps) => {
+const Form = ({ username, setUsername, fetchRepos, setRepositories,
+  setEndCursor, setHasNextPage }: FormProps) => {
+  const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+  
+      setRepositories([]); // reset
+      setEndCursor(null);
+      setHasNextPage(false);
+      
+      if (username) {
+        fetchRepos({ variables: { username, first: 10 } });
+      }
+    };
+  
+
   return (
     <>
       <h1 className="text-2xl font-bold mb-4">GitHub Repositories Explorer</h1>

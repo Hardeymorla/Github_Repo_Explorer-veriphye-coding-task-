@@ -1,16 +1,17 @@
 import React from 'react';
 
 interface SortSelectorProps {
-  value: string;
-  onChange: (value: string) => void;
+  sortOption: string,
+  setSortOption: (value: string) => void
 }
 
-const SortSelector: React.FC<SortSelectorProps> = ({ value, onChange }) => {
+const SortSelector: React.FC<SortSelectorProps> = ({ sortOption, setSortOption }) => {
+  
   return (
     <select
       className="p-2 border rounded"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
+      value={sortOption}
+      onChange={(e) => setSortOption(e.target.value)}
     >
       <option value="stars">Sort by Stars</option>
       <option value="updated">Sort by Last Updated</option>

@@ -1,16 +1,16 @@
 import React from 'react';
 
 interface LanguageFilterProps {
-  value: string;
-  onChange: (value: string) => void;
+  languageFilter: string;
+  setLanguageFilter: (value: string) => void;
 }
 
-const LanguageFilter: React.FC<LanguageFilterProps> = ({ value, onChange }) => {
+const LanguageFilter: React.FC<LanguageFilterProps> = ({ languageFilter, setLanguageFilter }) => {
   return (
     <select
       className="p-2 border rounded"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
+      value={languageFilter}
+      onChange={(e) => setLanguageFilter(e.target.value)}
     >
       <option value="All">All Languages</option>
       <option value="JavaScript">JavaScript</option>
